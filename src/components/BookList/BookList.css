@@ -1,0 +1,73 @@
+.videolist-content,
+.booklist-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+    gap: 1rem; /* Reduced spacing between items */
+    margin-top: 1.5rem; /* Reduced spacing above the grid */
+}
+
+.video-card,
+.book-card {
+    background: #fff;
+    border-radius: 6px; /* Slightly smaller border radius */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    overflow: hidden;
+    text-align: center;
+    padding: 0.8rem; /* Reduced padding */
+}
+
+.video-thumbnail,
+.book-thumbnail {
+    width: 80px; /* Reduced width */
+    height: 120px; /* Reduced height */
+    object-fit: cover;
+    border-radius: 4px; /* Slightly smaller border radius */
+    margin-bottom: 0.5rem; /* Reduced spacing below the image */
+}
+
+.video-title,
+.book-title {
+    font-size: 1rem; /* Reduced font size */
+    margin: 0.4rem 0; /* Reduced margin */
+    color: #333;
+}
+
+.video-channel,
+.book-author {
+    font-size: 0.85rem; /* Reduced font size */
+    color: #777;
+    margin-bottom: 0.4rem; /* Reduced spacing below */
+}
+
+.watch-btn,
+.read-btn {
+    display: inline-block;
+    margin-top: 0.5rem; 
+    padding: 0.4rem 0.8rem; 
+    font-size: 0.85rem; 
+    background: #0073e6;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px; 
+    transition: background 0.3s;
+}
+
+.watch-btn:hover,
+.read-btn:hover {
+    background: #005bb5;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .booklist-content,
+    .videolist-content {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 768px) {
+    .booklist-content,
+    .videolist-content {
+        grid-template-columns: 1fr; 
+    }
+}
