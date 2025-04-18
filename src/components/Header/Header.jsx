@@ -9,7 +9,7 @@ const Header = () => {
         <header className='header'>
             <Navbar />
             <div className='header-content flex flex-c text-center text-white'>
-                <h2 className='header-title text-capitalize'>Find the book of your choice.</h2><br />
+                <h2 className='header-title text-capitalize'>Find all resources for upskilling, advancing and enhancing knowledge</h2><br />
                 <p className='header-text fs-18 fw-3'>Browse, learn, and level up with curated videos, books, and more.</p>
                 <SearchForm />
             </div>

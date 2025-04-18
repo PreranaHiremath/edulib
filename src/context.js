@@ -13,26 +13,60 @@ const AppProvider = ({ children }) => {
     const [resultTitle, setResultTitle] = useState("");
 
     
+    // const fetchBooks = useCallback(async () => {
+    //     try {
+    //         const response = await fetch(`${BOOKS_URL}${searchTerm}`);
+    //         const data = await response.json();
+    //         const { docs } = data;
+
+    //         if (docs) {
+    //             const newBooks = docs.slice(0, 20).map((bookSingle) => {
+    //                 const { key, author_name, cover_i, edition_count, first_publish_year, title } = bookSingle;
+
+    //                 return {
+    //                     id: key,
+    //                     author: author_name,
+    //                     cover_id: cover_i,
+    //                     edition_count: edition_count,
+    //                     first_publish_year: first_publish_year,
+    //                     title: title,
+    //                 };
+    //             });
+
+    //             setBooks(newBooks);
+    //             setResultTitle(newBooks.length > 0 ? "Your Search Results" : "No Results Found!");
+    //         } else {
+    //             setBooks([]);
+    //             setResultTitle("No Results Found!");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error fetching books:", error);
+    //         setBooks([]);
+    //         setResultTitle("No Results Found!");
+    //     }
+    // }, [searchTerm]);
     const fetchBooks = useCallback(async () => {
         try {
             const response = await fetch(`${BOOKS_URL}${searchTerm}`);
             const data = await response.json();
             const { docs } = data;
-
+    
             if (docs) {
                 const newBooks = docs.slice(0, 20).map((bookSingle) => {
                     const { key, author_name, cover_i, edition_count, first_publish_year, title } = bookSingle;
-
+    
                     return {
                         id: key,
-                        author: author_name,
-                        cover_id: cover_i,
-                        edition_count: edition_count,
-                        first_publish_year: first_publish_year,
-                        title: title,
+                        author: author_name || ["Unknown"], // Fallback for missing author
+                        cover_img: cover_i
+                            ? `https://covers.openlibrary.org/b/id/${cover_i}-L.jpg` // Generate cover image URL
+                            : "https://via.placeholder.com/150x200?text=No+Image", // Fallback image
+                        edition_count: edition_count || "N/A", // Fallback for missing edition count
+                        first_publish_year: first_publish_year || "Unknown", // Fallback for missing publish year
+                        title: title || "No Title", // Fallback for missing title
                     };
                 });
-
+    
                 setBooks(newBooks);
                 setResultTitle(newBooks.length > 0 ? "Your Search Results" : "No Results Found!");
             } else {
@@ -45,7 +79,6 @@ const AppProvider = ({ children }) => {
             setResultTitle("No Results Found!");
         }
     }, [searchTerm]);
-
  
     const fetchVideos = useCallback(async () => {
         try {

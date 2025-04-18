@@ -9,34 +9,41 @@
 .video-card,
 .book-card {
     background: #fff;
-    border-radius: 6px; /* Slightly smaller border radius */
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 6px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); 
     overflow: hidden;
     text-align: center;
-    padding: 0.8rem; /* Reduced padding */
+    padding: 0; 
+    display: flex;
+    flex-direction: column;
 }
 
-.video-thumbnail,
+.video-thumbnail {
+    width: 100%; /* Make the thumbnail occupy the full width of the card */
+    height: 180px; /* Adjust height to maintain aspect ratio */
+    object-fit: cover; /* Ensure the image covers the entire area */
+    border-radius: 6px 6px 0 0; /* Match the card's border radius */
+}
 .book-thumbnail {
-    width: 80px; /* Reduced width */
-    height: 120px; /* Reduced height */
+    width: 80px; 
+    height: 120px; 
     object-fit: cover;
-    border-radius: 4px; /* Slightly smaller border radius */
-    margin-bottom: 0.5rem; /* Reduced spacing below the image */
+    border-radius: 4px; 
+    margin-bottom: 0.5rem; 
 }
 
 .video-title,
 .book-title {
-    font-size: 1rem; /* Reduced font size */
-    margin: 0.4rem 0; /* Reduced margin */
+    font-size: 1rem; 
+    margin: 0.4rem 0; 
     color: #333;
 }
 
 .video-channel,
 .book-author {
-    font-size: 0.85rem; /* Reduced font size */
+    font-size: 0.85rem; 
     color: #777;
-    margin-bottom: 0.4rem; /* Reduced spacing below */
+    margin-bottom: 0.4rem; 
 }
 
 .watch-btn,
@@ -70,4 +77,9 @@
     .videolist-content {
         grid-template-columns: 1fr; 
     }
+}
+
+.img-container{
+    display: flex;
+    justify-content: center;
 }
