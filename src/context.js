@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 
-const BOOKS_URL = "http://openlibrary.org/search.json?title=";
+// const BOOKS_URL = "http://openlibrary.org/search.json?title=";
 const YOUTUBE_URL = "https://www.googleapis.com/youtube/v3/search";
 const YOUTUBE_API_KEY = "AIzaSyA95XOnZ-EKp906DjJTYLXKFj027HQx_Rg"; // YouTube API key
+const GOOGLE_BOOKS_URL = "https://www.googleapis.com/books/v1/volumes";
+const GOOGLE_API_KEY = "AIzaSyBqj-6TXIvzD7K9hRjddL3sXGcuQs-CeOg"; 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
@@ -47,26 +49,24 @@ const AppProvider = ({ children }) => {
     // }, [searchTerm]);
     const fetchBooks = useCallback(async () => {
         try {
-            const response = await fetch(`${BOOKS_URL}${searchTerm}`);
+            const response = await fetch(
+                `${GOOGLE_BOOKS_URL}?q=${encodeURIComponent(searchTerm)}&maxResults=20&key=${GOOGLE_API_KEY}`
+            );
             const data = await response.json();
-            const { docs } = data;
+            const { items } = data;
     
-            if (docs) {
-                const newBooks = docs.slice(0, 20).map((bookSingle) => {
-                    const { key, author_name, cover_i, edition_count, first_publish_year, title } = bookSingle;
-    
+            if (items) {
+                const newBooks = items.map((item) => {
+                    const info = item.volumeInfo;
                     return {
-                        id: key,
-                        author: author_name || ["Unknown"], // Fallback for missing author
-                        cover_img: cover_i
-                            ? `https://covers.openlibrary.org/b/id/${cover_i}-L.jpg` // Generate cover image URL
-                            : "https://via.placeholder.com/150x200?text=No+Image", // Fallback image
-                        edition_count: edition_count || "N/A", // Fallback for missing edition count
-                        first_publish_year: first_publish_year || "Unknown", // Fallback for missing publish year
-                        title: title || "No Title", // Fallback for missing title
+                        id: item.id,
+                        title: info.title || "No Title",
+                        author: info.authors ? info.authors.join(", ") : "Unknown",
+                        cover_img: info.imageLinks?.thumbnail || "https://via.placeholder.com/150x200?text=No+Image",
+                        edition_count: info.printType || "N/A",
+                        first_publish_year: info.publishedDate || "Unknown",
                     };
                 });
-    
                 setBooks(newBooks);
                 setResultTitle(newBooks.length > 0 ? "Your Search Results" : "No Results Found!");
             } else {
