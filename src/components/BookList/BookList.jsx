@@ -1,6 +1,56 @@
+// import React from 'react';
+// import "./BookList.css";
+// import coverImg from "../../images/coverNoFound.png"; // Import the fallback image
+
+// const BookList = ({ results, type }) => {
+//   return (
+//     <section className='booklist'>
+//       <div className='container'>
+//         <div className='booklist-content grid'>
+//           {type === "books" &&
+//             results.map((book, index) => (
+//               <div key={index} className='book-card'>
+//                 <div className='img-container'>
+//                 <img
+//                   src={book.cover_img || coverImg} // Use fallback image if cover_img is missing
+//                   alt={book.title}
+//                   className='book-thumbnail'
+//                 />
+//                 </div>
+//                 <h3 className='book-title'>{book.title}</h3>
+//                 <p className='book-author'>Author: {book.author}</p>
+//                 <p className='book-description'>
+//                   Published: {book.first_publish_year || "Unknown"}
+//                 </p>
+//               </div>
+//             ))}
+//           {type === "videos" &&
+//             results.map((video, index) => (
+//               <div key={index} className='video-card'>
+//                 <img src={video.thumbnail} alt={video.title} className='video-thumbnail' />
+//                 <h3 className='video-title'>{video.title}</h3>
+//                 <p className='video-channel'>Channel: {video.channelTitle}</p>
+//                 <a
+//                   href={`https://www.youtube.com/watch?v=${video.id}`}
+//                   target='_blank'
+//                   rel='noopener noreferrer'
+//                   className='watch-btn'
+//                 >
+//                   Watch Now
+//                 </a>
+//               </div>
+//             ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default BookList;
 import React from 'react';
+import Book from './Book'; // Import the Book component
 import "./BookList.css";
-import coverImg from "../../images/coverNoFound.png"; // Import the fallback image
+import coverImg from "../../images/coverNoFound.png";
 
 const BookList = ({ results, type }) => {
   return (
@@ -9,20 +59,7 @@ const BookList = ({ results, type }) => {
         <div className='booklist-content grid'>
           {type === "books" &&
             results.map((book, index) => (
-              <div key={index} className='book-card'>
-                <div className='img-container'>
-                <img
-                  src={book.cover_img || coverImg} // Use fallback image if cover_img is missing
-                  alt={book.title}
-                  className='book-thumbnail'
-                />
-                </div>
-                <h3 className='book-title'>{book.title}</h3>
-                <p className='book-author'>Author: {book.author}</p>
-                <p className='book-description'>
-                  Published: {book.first_publish_year || "Unknown"}
-                </p>
-              </div>
+              <Book key={index} {...book} /> // Use Book component here
             ))}
           {type === "videos" &&
             results.map((video, index) => (

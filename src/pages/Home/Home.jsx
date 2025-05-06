@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Header from "../../components/Header/Header";
-import BookList from "../../components/BookList/BookList";
+import React, { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 import Blogs from "../../components/Blogs/Blogs";
+import BookList from "../../components/BookList/BookList";
+import Header from "../../components/Header/Header";
 import { useGlobalContext } from "../../context";
 import "./Home.css";
-import { Outlet } from "react-router-dom";
 
-const RAPIDAPI_KEY = "30804642famsha60de6a9027ee00p1b8098jsndf583705f09b"; // Replace with your RapidAPI key
+const CURRENTS_API_KEY = "zE_H35igwt8zXa9Oq8V8y-VPVHSxWT1FagOudmHkJz9Y8fk1"; // Replace with your Currents API key
 
 const Home = () => {
   const { books, videos, searchTerm } = useGlobalContext();
@@ -17,27 +17,25 @@ const Home = () => {
   // Visible counts for each type
   const [visible, setVisible] = useState(3);
 
-  // Fetch blogs from RapidAPI (Bing News Search)
+  // Fetch blogs from Currents API
   useEffect(() => {
     const fetchBlogs = async () => {
       setLoadingBlogs(true);
       try {
         const url = searchTerm
-          ? `https://bing-news-search1.p.rapidapi.com/news/search?q=${encodeURIComponent(
-              searchTerm
-            )}&count=15&mkt=en-US&safeSearch=Moderate`
-          : `https://bing-news-search1.p.rapidapi.com/news?category=education&mkt=en-US&safeSearch=Moderate`;
+          ? `https://api.currentsapi.services/v1/search?keywords=${encodeURIComponent(searchTerm)}&language=en`
+          : `https://api.currentsapi.services/v1/latest-news?language=en&category=education`;
 
         const response = await fetch(url, {
           method: "GET",
           headers: {
-            "X-RapidAPI-Key": "30804642famsha60de6a9027ee00p1b8098jsndf583705f09b",
-            "X-RapidAPI-Host": "article-extractor-and-summarizer.p.rapidapi.com",
+            "Authorization": CURRENTS_API_KEY
           },
         });
         const data = await response.json();
-        setBlogs(data.value || []);
+        setBlogs(data.news || []);
       } catch (error) {
+        console.error("Error fetching blogs:", error);
         setBlogs([]);
       }
       setLoadingBlogs(false);

@@ -65,6 +65,7 @@ const AppProvider = ({ children }) => {
                         cover_img: info.imageLinks?.thumbnail || "https://via.placeholder.com/150x200?text=No+Image",
                         edition_count: info.printType || "N/A",
                         first_publish_year: info.publishedDate || "Unknown",
+                        description: info.description || "", // <-- add this line here
                     };
                 });
                 setBooks(newBooks);
@@ -79,6 +80,7 @@ const AppProvider = ({ children }) => {
             setResultTitle("No Results Found!");
         }
     }, [searchTerm]);
+    
  
     const fetchVideos = useCallback(async () => {
         try {
@@ -136,6 +138,7 @@ const AppProvider = ({ children }) => {
         </AppContext.Provider>
     );
 };
+
 
 export const useGlobalContext = () => {
     return useContext(AppContext);
