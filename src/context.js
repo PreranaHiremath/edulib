@@ -2,9 +2,9 @@ import React, { useState, useContext, useEffect, useCallback } from 'react';
 
 // const BOOKS_URL = "http://openlibrary.org/search.json?title=";
 const YOUTUBE_URL = "https://www.googleapis.com/youtube/v3/search";
-const YOUTUBE_API_KEY = "AIzaSyA95XOnZ-EKp906DjJTYLXKFj027HQx_Rg"; // YouTube API key
+const YOUTUBE_API_KEY = "AIzaSyA95XOnZ-EKp906DjJTYLXKFj027HQx_Rg";
 const GOOGLE_BOOKS_URL = "https://www.googleapis.com/books/v1/volumes";
-const GOOGLE_API_KEY = "AIzaSyBqj-6TXIvzD7K9hRjddL3sXGcuQs-CeOg"; 
+const GOOGLE_API_KEY = "AIzaSyBqj-6TXIvzD7K9hRjddL3sXGcuQs-CeOg";
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
